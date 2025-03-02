@@ -34,13 +34,15 @@ class BookController extends Controller
     {
         $id_1 = $request->input("id_1");
         $the_loai_1 = $request->input("the_loai_1");
-
-        $data = ["id"=>$id_1,"ten_the_loai"=>$the_loai_1];
-        
-        DB::table("the_loai")->insert($data); 
-        $the_loai_sach = DB::table("the_loai")->get();
-        return view("qlsach.the_loai",compact("the_loai_sach"));
-      
+        if(!empty($id_1) && !empty($the_loai_1)) {
+            $data = ["id"=>$id_1,"ten_the_loai"=>$the_loai_1];
+            DB::table("the_loai")->insert($data); 
+            
+            $the_loai_sach = DB::table("the_loai")->get();
+            return view("qlsach.the_loai",compact("the_loai_sach"));
+        }else{
+            return "Thêm thất bại";
+        }
     }
     function them_the_loai_2(Request $request)
     {
@@ -49,14 +51,21 @@ class BookController extends Controller
         $id_2 = $request->input("id_2");
         $the_loai_2 = $request->input("the_loai_2");
 
-        $data = [
-            ["id"=>$id_1,"ten_the_loai"=>$the_loai_1],
-            ["id"=>$id_2,"ten_the_loai"=>$the_loai_2],
-        ];
-        
-        DB::table("the_loai")->insert($data); 
-        $the_loai_sach = DB::table("the_loai")->get();
-        return view("qlsach.the_loai",compact("the_loai_sach"));
-      
+        if (!empty($id_1) && !empty($the_loai_1)) {
+            $data[] = ["id" => $id_1, "ten_the_loai" => $the_loai_1];
+        }
+    
+        if (!empty($id_2) && !empty($the_loai_2)) {
+            $data[] = ["id" => $id_2, "ten_the_loai" => $the_loai_2];
+        }
+    
+        if (!empty($data)) {
+            DB::table("the_loai")->insert($data);
+            
+            $the_loai_sach = DB::table("the_loai")->get();
+            return view("qlsach.the_loai",compact("the_loai_sach"));
+        }else{
+            return "Thêm thất bại";
+        }
     }
 }
