@@ -15,15 +15,18 @@
                 </th>
             </tr>
             <tr>
-                <td><input type="number" name="id_1"> </td>
-                <td><input type="text" name="the_loai_1"></td>
+                <td><input type="number" size="5" name="id[]"> </td>
+                <td><input type="text"  name="the_loai[]"></td>
             </tr>
             <tr>
-                <td><input type="number" name="id_2"> </td>
-                <td><input type="text" name="the_loai_2"></td>
+                <td><input type="number"  size="5" name="id[]"> </td>
+                <td><input type="text" name="the_loai[]"></td>
             </tr>
+            <tr>
+                <td colspan="2" align="center"> <input type='submit' value='Thêm thể loại'> </td>
+</tr>
         </table>
-        <input type='submit' value='Thêm thể loại'>
+        
         {{ csrf_field() }}
     </form>
 </body>
