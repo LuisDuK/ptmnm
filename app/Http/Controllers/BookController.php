@@ -46,19 +46,13 @@ class BookController extends Controller
     }
     function them_the_loai_2(Request $request)
     {
-        $id_1 = $request->input("id_1");
-        $the_loai_1 = $request->input("the_loai_1");
-        $id_2 = $request->input("id_2");
-        $the_loai_2 = $request->input("the_loai_2");
-
-        if (!empty($id_1) && !empty($the_loai_1)) {
-            $data[] = ["id" => $id_1, "ten_the_loai" => $the_loai_1];
+        $id = $request->input("id");
+        $the_loai = $request->input("the_loai");
+       
+        $data=[];
+        foreach($id as $key=>$value){
+            $data[] =["id"=>$value, "ten_the_loai"=> $the_loai[$key]];
         }
-    
-        if (!empty($id_2) && !empty($the_loai_2)) {
-            $data[] = ["id" => $id_2, "ten_the_loai" => $the_loai_2];
-        }
-    
         if (!empty($data)) {
             DB::table("the_loai")->insert($data);
             
