@@ -2,7 +2,9 @@
 <html>
 
 <head>
-    <title>{{$title}} <?php // @yield('title')?></title>
+    <title>{{$title}}
+        <!--@yield('title')-->
+    </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
     .navbar {
