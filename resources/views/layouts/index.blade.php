@@ -1,6 +1,3 @@
-<!-- @extends("layouts.sach_layout")
-@section("title","Sách")
-@section("content") -->
 <x-book-layout>
     <x-slot name="title">Sách
     </x-slot>
@@ -16,4 +13,3 @@
         @endforeach
     </div>
 </x-book-layout>
-<!--  @endsection -->

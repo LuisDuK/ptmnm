@@ -12,11 +12,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
+Route::get('/','App\Http\Controllers\ViduLayoutController@sach');
+/*Route::get('/', function () {
     return view('welcome');
-});
-
+});*/
+Route::get('/accountpanel','App\Http\Controllers\AccountController@accountpanel')->middleware('auth')->name("account");
+Route::post('/saveaccountinfo','App\Http\Controllers\AccountController@saveaccountinfo')->middleware('auth')->name('saveinfo');
+Route::get('/managelistbook','App\Http\Controllers\AccountController@managebook')->middleware('auth')->name('managelistbook');
+Route::get('/bookcreate','App\Http\Controllers\AccountController@createbook')->middleware('auth')->name('bookcreate');
+Route::post('/addbook','App\Http\Controllers\AccountController@addbook')->middleware('auth')->name('addbook');
+Route::get('/bookedit/{id}','App\Http\Controllers\AccountController@editbook')->middleware('auth')->name('bookedit');
+Route::post('/bookdelete','App\Http\Controllers\AccountController@deletebook')->middleware('auth')->name('bookdelete');
+Route::post('/bookupdate','App\Http\Controllers\AccountController@updatebook')->middleware('auth')->name('updatebook');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
