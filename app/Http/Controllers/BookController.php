@@ -79,7 +79,8 @@ class BookController extends Controller
     { 
         $request->validate([
         "id"=>["required","numeric"],
-        "num"=>["required","numeric"]]); $id = $request->id;
+        "num"=>["required","numeric"]]); 
+        $id = $request->id;
         $num = $request->num;
         $total = 0;
         $cart = [];
@@ -128,8 +129,8 @@ class BookController extends Controller
         $cart = [];
         if(session()->has('cart'))
         {
-        $cart = session()->get("cart");
-        unset($cart[$id]);
+            $cart = session()->get("cart");
+            unset($cart[$id]);
         }
         session()->put("cart",$cart);
         return redirect()->route('order');
