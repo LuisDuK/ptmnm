@@ -23,7 +23,7 @@
 </x-book-layout>
 <script>
 $(document).ready(function() {
-    $(".add-product").click(function() {
+    $(document).on("click", ".add-product", function() {
         id = $(this).attr("book_id");
         num = 1;
         $.ajax({
