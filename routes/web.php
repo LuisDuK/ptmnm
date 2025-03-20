@@ -24,7 +24,16 @@ Route::post('/addbook','App\Http\Controllers\AccountController@addbook')->middle
 Route::get('/bookedit/{id}','App\Http\Controllers\AccountController@editbook')->middleware('auth')->name('bookedit');
 Route::post('/bookdelete','App\Http\Controllers\AccountController@deletebook')->middleware('auth')->name('bookdelete');
 Route::post('/bookupdate/{id}','App\Http\Controllers\AccountController@updatebook')->middleware('auth')->name('updatebook');
-Route::get('/dashboard', function () {
+Route::get('/order','App\Http\Controllers\BookController@order')->name('order');
+
+Route::get('/sach/theloai/{id}/','App\Http\Controllers\vidulayoutController@theloai');
+Route::post('/bookview','App\Http\Controllers\BookController@bookview')->name("bookview");
+
+Route::get('/sach/chitiet/{id}','App\Http\Controllers\ViduLayoutController@thongtinsach');
+ Route::post('/cart/add','App\Http\Controllers\BookController@cartadd')->name('cartadd');
+  Route::post('/cart/delete','App\Http\Controllers\BookController@cartdelete')->name('cartdelete');
+ Route::post('/order/create','App\Http\Controllers\BookController@ordercreate') ->middleware('auth')->name('ordercreate');
+ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 

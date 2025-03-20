@@ -24,6 +24,6 @@ class vidulayoutController extends Controller
     function thongtinsach($id)
     {
         $data = DB::table('sach')->where('id', $id)->first();
-        return view("layouts.infor_sach", compact("data"));
+        return view("vidusach.infor_sach", compact("data"));
     }
 }
