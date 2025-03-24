@@ -39,7 +39,7 @@ class AccountController extends Controller
             'file_anh_bia' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
-        // Insert vào database trước để lấy ID
+       
         $bookId = DB::table('sach')->insertGetId([
             'tieu_de' => $request->input('tieu_de'),
             'id_the_loai' => $request->input('id_the_loai'),
@@ -51,15 +51,15 @@ class AccountController extends Controller
             'gia_ban' => $request->input('gia_ban')
         ]);
     
-        // Xử lý hình ảnh nếu có
+        
         if ($request->hasFile("file_anh_bia")) {
-            // Tạo tên file theo ID sách + đuôi mở rộng
+           
             $fileName = $bookId . '.' . $request->file('file_anh_bia')->extension();
             
-            // Lưu file vào thư mục storage/app/public/books
+         
             $request->file('file_anh_bia')->storeAs('public/books', $fileName);
     
-            // Cập nhật đường dẫn hình ảnh vào database
+           
             DB::table('sach')->where('id', $bookId)->update(['file_anh_bia' => $fileName]);
         }
     
@@ -79,9 +79,9 @@ class AccountController extends Controller
         $data["email"] = $request->input("email");
         if($request->hasFile("photo"))
         {
-    //Tạo tên file bằng cách lấy id của người dùng ghép với phần mở rộng của hình ảnh
+   
         $fileName = Auth::user()->id . '.' . $request->file('photo')->extension(); 
-    //File được lưu vào thư mục storage/app/public/profile
+    
         $request->file('photo')->storeAs('public/profile', $fileName);
         $data['photo'] = $fileName;
         }
@@ -91,10 +91,9 @@ class AccountController extends Controller
         }
     function editbook($id)
         {
-            // Lấy thông tin sách từ database
+           
             $sach = DB::table('sach')->where('id', $id)->first();
             
-            // Lấy danh sách thể loại để hiển thị trong dropdown
             $the_loai = DB::table('the_loai')->get();
         
             if (!$sach) {
@@ -128,7 +127,6 @@ class AccountController extends Controller
         return redirect()->route('book.create')->with('error', 'Sách không tồn tại!');
     }
 
-    // Cập nhật dữ liệu
     DB::table('sach')->where('id', $id)->update([
         'tieu_de' => $request->input('tieu_de'),
         'id_the_loai' => $request->input('id_the_loai'),
@@ -140,7 +138,6 @@ class AccountController extends Controller
         'gia_ban' => $request->input('gia_ban')
     ]);
 
-    // Xử lý hình ảnh nếu có file mới
     if ($request->hasFile("file_anh_bia")) {
         $fileName = $id . '.' . $request->file('file_anh_bia')->extension();
         $request->file('file_anh_bia')->storeAs('public/books', $fileName);
