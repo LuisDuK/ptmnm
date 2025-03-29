@@ -19,13 +19,19 @@ Route::get('/','App\Http\Controllers\ViduLayoutController@sach');
 Route::get('/accountpanel','App\Http\Controllers\AccountController@accountpanel')->middleware('auth')->name("account");
 Route::post('/saveaccountinfo','App\Http\Controllers\AccountController@saveaccountinfo')->middleware('auth')->name('saveinfo');
 Route::get('/managelistbook','App\Http\Controllers\AccountController@managebook')->middleware('auth')->name('managelistbook');
-Route::get('/bookcreate','App\Http\Controllers\AccountController@createbook')->middleware('auth')->name('bookcreate');
+//Route::get('/bookcreate','App\Http\Controllers\AccountController@createbook')->middleware('auth')->name('bookcreate');
 Route::post('/addbook','App\Http\Controllers\AccountController@addbook')->middleware('auth')->name('addbook');
-Route::get('/bookedit/{id}','App\Http\Controllers\AccountController@editbook')->middleware('auth')->name('bookedit');
-Route::post('/bookdelete','App\Http\Controllers\AccountController@deletebook')->middleware('auth')->name('bookdelete');
-Route::post('/bookupdate/{id}','App\Http\Controllers\AccountController@updatebook')->middleware('auth')->name('updatebook');
+//Route::get('/bookedit/{id}','App\Http\Controllers\AccountController@editbook')->middleware('auth')->name('bookedit');
+//Route::post('/bookdelete','App\Http\Controllers\AccountController@deletebook')->middleware('auth')->name('bookdelete');
+//Route::post('/bookupdate/{id}','App\Http\Controllers\AccountController@updatebook')->middleware('auth')->name('updatebook');
 Route::get('/order','App\Http\Controllers\BookController@order')->name('order');
 
+Route::get('/book/create','App\Http\Controllers\BookController@bookcreate')->middleware('auth')->name("bookcreate");
+ Route::get('/book/edit/{id}','App\Http\Controllers\BookController@bookedit')->middleware('auth')->name("bookedit");
+ Route::post('/book/save/{action}','App\Http\Controllers\BookController@booksave'
+ )->middleware('auth')->name("booksave");
+ Route::post('/book/delete','App\Http\Controllers\BookController@bookdelete')->middleware('auth')->name("bookdelete");
+ 
 Route::get('/sach/theloai/{id}/','App\Http\Controllers\vidulayoutController@theloai');
 Route::post('/bookview','App\Http\Controllers\BookController@bookview')->name("bookview");
 

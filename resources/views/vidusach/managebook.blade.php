@@ -1,6 +1,11 @@
 <x-account-panel>
 
     <div style='text-align:center; color:#15c; font-weight:bold; font-size:20px;'>QUẢN LÝ SÁCH</div>
+    @if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+    @endif
     <a href="{{route('bookcreate')}}" class='btn btn-sm btn-success mb-1'>Thêm</a>
     <table id="book-table" class="table table-striped table-bordered" width="100%">
         <thead>
@@ -42,4 +47,12 @@
             @endforeach
         </tbody>
     </table>
+    <script>
+    $(document).ready(function() {
+        $('#book-table').DataTable({
+            responsive: true,
+            "bStateSave": true
+        });
+    });
+    </script>
 </x-account-panel>
