@@ -5,7 +5,6 @@
 
     <div>
         <div style='color:#15c; font-weight:bold;font-size:15px;text-align:center'>DANH SÁCH SẢN PHẨM</div>
-
         <table class='book-table' style='margin:0 auto; width:70%'>
             <thead>
                 <th>STT</th>

@@ -86,15 +86,15 @@ class BookController extends Controller
         $cart = [];
         if(session()->has('cart'))
         {
-        $cart = session()->get("cart");
-        if(isset($cart[$id]))
-        $cart[$id] += $num;
-        else
-        $cart[$id] = $num ;
+            $cart = session()->get("cart");
+            if(isset($cart[$id])){
+            $cart[$id] += $num;}
+            else{
+            $cart[$id] = $num ;}
         }
         else
         {
-        $cart[$id] = $num ;
+            $cart[$id] = $num ;
         }
         session()->put("cart",$cart);
         return count($cart);
@@ -105,7 +105,7 @@ class BookController extends Controller
         $data =[];
         $quantity = [];
         if(session()->has('cart'))
-        {
+        {   
             $cart = session("cart");
             $list_book = "";
             foreach($cart as $id=>$value)
@@ -113,8 +113,8 @@ class BookController extends Controller
             $quantity[$id] = $value;
             $list_book .=$id.", ";
             }
+          
     }
-  
         $list_book = substr($list_book, 0,strlen($list_book)-2);
         $data = DB::table("sach")->whereRaw("id in (".$list_book.")")->get();
         return view("vidusach.order",compact("quantity","data"));
@@ -140,8 +140,8 @@ class BookController extends Controller
         $request->validate([
         "hinh_thuc_thanh_toan"=>["required","numeric"]
         ]);
-        $data = [];
-        $quantity = [];
+
+        $message = "";
         if(session()->has('cart'))
         {
         $order = ["ngay_dat_hang"=>DB::raw("now()"),"tinh_trang"=>1,
@@ -154,9 +154,10 @@ class BookController extends Controller
         $quantity = [];
         foreach($cart as $id=>$value)
         {
-        $quantity[$id] = $value;
-        $list_book .=$id.", ";
-        }
+            $quantity[$id] = $value;
+            $list_book .=$id.", ";
+        } 
+      
         $list_book = substr($list_book, 0,strlen($list_book)-2);
         $data = DB::table("sach")->whereRaw("id in (".$list_book.")")->get();
         $detail = [];
@@ -164,14 +165,18 @@ class BookController extends Controller
         {
         $detail[] = ["ma_don_hang"=>$id_don_hang,"sach_id"=>$row->id,
         "so_luong"=>$quantity[$row->id],"don_gia"=>$row->gia_ban]; 
-    }
+    } 
         DB::table("chi_tiet_don_hang")->insert($detail);
+        $message = "Thêm thành công";
         session()->forget('cart');
         });
         }
-        return view("vidusach.order", compact('data','quantity'));
+        return redirect()->route('sach')->with('status', $message);
+
     }
-    public function bookcreate(){
+
+    
+ public function bookcreate(){
         $the_loai = DB::table("the_loai")->get();
         $action = "add";
         return view("vidusach.book_form",compact("the_loai","action"));

@@ -21,29 +21,28 @@
         <b>Mô tả:</b><br>
         {{ $data->mo_ta }}<br>
     </div>
-
-</x-book-layout>
-<script>
-$(document).ready(function() {
-    $("#add-to-cart").click(function() {
-        id = "{{$data->id}}";
-        num = $("#product-number").val();
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "{{route('cartadd')}}",
-            data: {
-                "_token": "{{ csrf_token() }}",
-                "id": id,
-                "num": num
-            },
-            beforeSend: function() {},
-            success: function(data) {
-                $("#cart-number-product").html(data);
-            },
-            error: function(xhr, status, error) {},
-            complete: function(xhr, status) {}
+    <script>
+    $(document).ready(function() {
+        $("#add-to-cart").click(function() {
+            id = "{{$data->id}}";
+            num = $("#product-number").val();
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "{{route('cartadd')}}",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "id": id,
+                    "num": num
+                },
+                beforeSend: function() {},
+                success: function(data) {
+                    $("#cart-number-product").html(data);
+                },
+                error: function(xhr, status, error) {},
+                complete: function(xhr, status) {}
+            });
         });
     });
-});
-</script>
+    </script>
+</x-book-layout>

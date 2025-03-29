@@ -14,12 +14,12 @@ class vidulayoutController extends Controller
     function sach()
     {
         $data = DB::select("select * from sach order by gia_ban asc limit 0,8");
-        return view("layouts.index", compact("data"));
+        return view("vidusach.index", compact("data"));
     }
     function theloai($id)
     {
         $data = DB::select("select * from sach where id_the_loai = ?",[$id]);
-        return view("layouts.index", compact("data"));
+        return view("vidusach.index", compact("data"));
     }
     function thongtinsach($id)
     {
