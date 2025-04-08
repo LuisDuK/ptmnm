@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+use App\Models\User;
+use App\Notifications\NoficationOrder;
+
 
 class BookController extends Controller
 {
@@ -12,7 +16,8 @@ class BookController extends Controller
     {
         return view("layouts.trang1");
     }
-    
+
+
     function laythongtintheloai(){
         $the_loai_sach = DB::table("the_loai")->get();
         return view("qlsach.the_loai",compact("the_loai_sach"));
@@ -167,14 +172,23 @@ class BookController extends Controller
         "so_luong"=>$quantity[$row->id],"don_gia"=>$row->gia_ban]; 
     } 
         DB::table("chi_tiet_don_hang")->insert($detail);
+
+        $this->sendEmailOrder($id_don_hang);
         $message = "Thêm thành công";
         session()->forget('cart');
         });
         }
         return redirect()->route('sach')->with('status', $message);
-
     }
-
+    public function sendEmailOrder($id_don_hang)
+    {
+        $user = Auth::user();
+        $donHang = DB::select("select * from chi_tiet_don_hang c, sach s
+            where c.sach_id = s.id
+            and c.ma_don_hang = $id_don_hang");
+        // dd($donHang);
+        $user->notify(new NoficationOrder($donHang));
+    }
     
  public function bookcreate(){
         $the_loai = DB::table("the_loai")->get();
